@@ -1,5 +1,31 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("jvm") version "2.3.0"
+    id("com.gradleup.shadow") version "8.3.0"
+}
+
+
+val testShadowJar by tasks.registering(ShadowJar::class) {
+    description = "Create a combined JAR of project and test dependencies"
+    group = "build"
+
+    // Use .set() for lazy Property types
+    archiveClassifier.set("main")
+
+    // Wire the test sources
+    from(sourceSets.map { it.output })
+
+    // FIX: Eagerly retrieve the configuration using .get()
+    configurations = listOf(project.configurations.testRuntimeClasspath.get())
+
+    manifest {
+        attributes(mapOf("Main-Class" to "WaydroidKt"))
+    }
+}
+
+tasks.assemble {
+    dependsOn(testShadowJar)
 }
 
 group = "waydroid.java_port.hilman"

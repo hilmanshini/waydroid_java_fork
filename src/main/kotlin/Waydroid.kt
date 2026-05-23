@@ -21,9 +21,15 @@ private interface LibC : Library {
 
 fun main(args: Array<String>) {
     Native.load("c", LibC::class.java).umask(0b000_010_010) // 0o022
-
-    val parsed = ParsedArgs(action = "init", detailsToStdout = true)
-
+//Arguments.parse(args)
+//    val parsed = ParsedArgs(action = "app", subaction = "launch", uriArg = "", detailsToStdout = true)
+    val parsed = ParsedArgs(
+        action = args.getOrNull(0),
+        subaction = args.getOrNull(1),
+        packageArg = args.getOrNull(2) ?: "",
+        uriArg = args.getOrNull(2) ?: "",
+        detailsToStdout = "--details-to-stdout" in args
+    )
     val work = defaults["work"]!!
     val configPath = "$work/waydroid.cfg"
     val logPath = if (File(work).exists()) "$work/waydroid.log" else "/tmp/waydroid.log"

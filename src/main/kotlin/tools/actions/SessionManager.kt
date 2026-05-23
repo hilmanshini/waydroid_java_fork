@@ -23,8 +23,8 @@ object SessionManager {
     fun start(binderDev: String, unlockedCb: (() -> Unit)? = null, background: Boolean = true) {
         val session = sessionDefaults()
 
-        var waylandDisplay = session["wayland_display"] ?: "wayland-0"
-        if (waylandDisplay == "null" || waylandDisplay.isEmpty()) waylandDisplay = "wayland-0"
+        var waylandDisplay = session["wayland_display"] ?: "wayland-1"
+        if (waylandDisplay == "null" || waylandDisplay.isEmpty()) waylandDisplay = "wayland-1"
         session["wayland_display"] = waylandDisplay
 
         val xdgRuntimeDir = session["xdg_runtime_dir"] ?: ""

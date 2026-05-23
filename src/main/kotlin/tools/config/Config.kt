@@ -27,7 +27,7 @@ val defaults: Map<String, String> = mutableMapOf(
     "mount_overlays"   to "True",
     "auto_adb"         to "False",
     "container_xdg_runtime_dir"    to "/run/xdg",
-    "container_wayland_display"    to "wayland-0",
+    "container_wayland_display"    to "wayland-1",
 ).also { m ->
     val work = m["work"]!!
     m["images_path"]   = "$work/images"
@@ -51,7 +51,7 @@ fun sessionDefaults(): MutableMap<String, String> {
     val home = System.getProperty("user.home") ?: "/root"
     val xdgDataHome = System.getenv("XDG_DATA_HOME") ?: "$home/.local/share"
     val xdgRuntimeDir = System.getenv("XDG_RUNTIME_DIR") ?: ""
-    val waylandDisplay = System.getenv("WAYLAND_DISPLAY") ?: "wayland-0"
+    val waylandDisplay = System.getenv("WAYLAND_DISPLAY") ?: "wayland-1"
     var pulseRuntimePath = System.getenv("PULSE_RUNTIME_PATH") ?: ""
     if (pulseRuntimePath.isEmpty()) pulseRuntimePath = "$xdgRuntimeDir/pulse"
 
